@@ -1,22 +1,249 @@
-/* Hide elements with .hidden */
+/* css/main.css */
+
+/* 1) DESIGN TOKENS */
+:root {
+  /* Colors */
+  --color-primary:        #2D8C82;   /* Teal */
+  --color-bg:             #FAF7EF;   /* Light cream */
+  --color-surface:        #FFFFFF;   /* White cards & containers */
+  --color-input-bg:       #F2F2F2;   /* Light grey inputs */
+  --color-text:           #333333;   /* Primary text */
+  --color-text-muted:     #666666;   /* Secondary text */
+
+  /* Typography */
+  --font-family:          'Inter', sans-serif;
+  --font-size-base:       16px;
+  --line-height-base:     1.5;
+
+  /* Spacing scale */
+  --space-xs:             4px;
+  --space-sm:             8px;
+  --space-md:             16px;
+  --space-lg:             24px;
+  --space-xl:             32px;
+
+  /* Border radius */
+  --radius-card:          16px;
+  --radius-pill:          24px;
+
+  /* Shadow */
+  --elevation-card:       0 2px 8px rgba(0,0,0,0.05);
+}
+
+/* 2) GLOBAL RESET + TYPOGRAPHY */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+body {
+  line-height: var(--line-height-base);
+}
+
+/* Headings */
+h1 {
+  font-size: 1.75rem;
+  margin-bottom: var(--space-md);
+}
+h2 {
+  font-size: 1.25rem;
+  margin-bottom: var(--space-sm);
+}
+
+/* Links */
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+/* Utility */
 .hidden {
-    display: none;
-  }
-  
-  /* Basic card styling for the exercise feed */
-  .exercise-card {
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 1rem;
-    margin-bottom: 1rem;
-    background: #fff;
-  }
-  
-  .start-exercise-btn {
-    margin-top: 0.5rem;
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
+  display: none !important;
+}
+
+/* 3) LAYOUT */
+header {
+  background-color: var(--color-primary);
+  color: white;
+  padding: var(--space-md);
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+header h1 {
+  font-size: 1.5rem;
+  flex-grow: 1;
+}
+
+#menu-toggle {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+nav#sidebar {
+  background: var(--color-surface);
+  box-shadow: var(--elevation-card);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 250px;
+  height: 100%;
+  padding: var(--space-md);
+  transform: translateX(-100%);
+  transition: transform 0.3s;
+}
+
+nav#sidebar:not(.hidden) {
+  transform: translateX(0);
+}
+
+nav#sidebar ul {
+  list-style: none;
+}
+
+nav#sidebar li + li {
+  margin-top: var(--space-sm);
+}
+
+main {
+  padding: var(--space-lg);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+footer {
+  text-align: center;
+  padding: var(--space-md);
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+}
+
+/* 4) FORMS & INPUTS */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="time"],
+select {
+  width: 100%;
+  max-width: 100%;
+  padding: var(--space-sm) var(--space-md);
+  margin-bottom: var(--space-md);
+  border: none;
+  border-radius: var(--radius-pill);
+  background-color: var(--color-input-bg);
+  font-size: 1rem;
+  color: var(--color-text);
+}
+
+input::placeholder,
+select {
+  color: var(--color-text-muted);
+}
+
+/* Checkbox & Toggle wrapper */
+fieldset {
+  margin-bottom: var(--space-lg);
+  border: none;
+}
+
+#health-conditions-container div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-sm);
+}
+
+/* Example toggle switch */
+#health-conditions-container input[type="checkbox"] {
+  appearance: none;
+  width: 40px;
+  height: 20px;
+  background: #ccc;
+  border-radius: 10px;
+  position: relative;
+  cursor: pointer;
+}
+
+#health-conditions-container input[type="checkbox"]:checked {
+  background: var(--color-primary);
+}
+
+#health-conditions-container input[type="checkbox"]::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  background: #fff;
+  border-radius: 50%;
+  transition: transform 0.2s;
+}
+
+#health-conditions-container input[type="checkbox"]:checked::after {
+  transform: translateX(20px);
+}
+
+/* 5) BUTTONS */
+button,
+.btn {
+  display: inline-block;
+  text-align: center;
+  font-size: 1rem;
+  padding: var(--space-md);
+  border: none;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  width: 100%;
+  max-width: 400px;
+}
+
+.btn-primary {
+  background-color: var(--color-primary);
+  color: #fff;
+}
+
+.btn-outline {
+  background-color: transparent;
+  border: 2px solid var(--color-primary);
+  color: var(--color-primary);
+}
+
+/* 6) CARDS */
+.card,
+.exercise-card {
+  background-color: var(--color-surface);
+  border-radius: var(--radius-card);
+  box-shadow: var(--elevation-card);
+  padding: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+
+.exercise-card h2 {
+  margin-bottom: var(--space-sm);
+}
+
+/* Utility to center images/artwork */
+img.responsive {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto var(--space-md);
+}
+
+/* END of main.css */

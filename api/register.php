@@ -1,18 +1,12 @@
 <?php
-// Very simple debugging output.
-// In Produktion → Passwort nicht im Klartext zurücksenden,
-// sondern z.B. mit password_hash() abspeichern und gar nicht echo‑n!
-
-// immer wenn wir etwas mit der db machen, 
-// brauchen wir require once
 require_once('../system/config.php');
-
 header('Content-Type: text/plain; charset=UTF-8');
 
-// ► Daten aus $_POST abgreifen (kommen dort an, weil wir FormData benutzen)
-$username = $_POST['username'] ?? '';
-$email    = $_POST['email']    ?? '';
-$password = $_POST['password'] ?? '';
+// ► Daten aus $_POST abgreifen
+$username   = $_POST['username'] ?? '';
+$email      = $_POST['email']    ?? '';
+$password   = $_POST['password'] ?? '';
+$conditions = $_POST['conditions'] ?? [];  // array of IDs
 
 // check if fields are filled
 if (empty($username) || empty($email) || empty($password)) {
@@ -31,38 +25,48 @@ $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 // check if user already exists
 $stmt = $pdo->prepare("SELECT * FROM users WHERE email = :email OR username = :username");
 $stmt->execute([
-    ':email' => $email,
+    ':email'    => $email,
     ':username' => $username
 ]);
 $user = $stmt->fetch();
 
 if ($user) {
-
     echo "Username oder E-Mail bereits vergeben";
     exit;
+}
 
-} else {
+// insert new user
+$insert = $pdo->prepare(
+    "INSERT INTO users (email, username, password_hash, created_at, age) 
+     VALUES (:email, :username, :pass, NOW(), NULL)"
+);
+$insert->execute([
+    ':email'    => $email,
+    ':username' => $username,
+    ':pass'     => $hashedPassword
+]);
 
+if ($insert) {
+    // get new user_id
+    session_start();
+    $user_id = $pdo->lastInsertId();
+    $_SESSION['user_id'] = $user_id;
 
-
-    // insert new user
-    $insert = $pdo->prepare("INSERT INTO users (email, username, password_hash) VALUES (:email, :user, :pass)");
-    $insert->execute([
-    ':email' => $email,
-    ':pass'  => $hashedPassword,
-    ':user' => $username
-    ]);
-
-    if ($insert) {
-        echo "Registrierung erfolgreich";
-
-        session_start();
-        $_SESSION['user_id'] = $pdo->lastInsertId();
-        
-
-    } else {
-        echo "Registrierung fehlgeschlagen";
+    // insert health conditions
+    if (is_array($conditions)) {
+        $link = $pdo->prepare(
+            "INSERT INTO user_has_condition (user_id, health_condition_id)
+             VALUES (:uid, :hc)"
+        );
+        foreach ($conditions as $hc_id) {
+            $link->execute([
+                ':uid' => $user_id,
+                ':hc'  => $hc_id
+            ]);
+        }
     }
 
-   
+    echo "Registrierung erfolgreich";
+} else {
+    echo "Registrierung fehlgeschlagen";
 }

@@ -1,4 +1,7 @@
 <?php
+
+require_once('../system/config.php');
+
 header('Content-Type: application/json; charset=UTF-8');
 
 // TODO: Replace with real DB query joining user_exercises + exercises

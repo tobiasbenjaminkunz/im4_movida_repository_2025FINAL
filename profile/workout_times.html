@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MoVida – Trainingszeiten</title>
+  <link rel="stylesheet" href="../css/main.css"/>
+</head>
+<body>
+  <header>
+    <button id="menu-toggle" aria-label="Menü öffnen">☰</button>
+    <h1>Trainingszeiten</h1>
+  </header>
+
+  <nav id="sidebar" class="hidden"></nav>
+
+  <main>
+    <form id="workoutTimesForm">
+      <div id="existing-times">
+        <!-- JS will list current times with delete buttons -->
+      </div>
+      <fieldset>
+        <legend>Neue Zeit hinzufügen:</legend>
+        <label for="wt-day">Tag:</label>
+        <select id="wt-day" name="day_of_week">
+          <option value="0">Sonntag</option>
+          <option value="1">Montag</option>
+          <!-- … bis Samstag (6) -->
+        </select>
+        <label for="wt-time">Uhrzeit:</label>
+        <input id="wt-time" name="time" type="time" required/>
+      </fieldset>
+      <button type="submit">Hinzufügen</button>
+    </form>
+    <p id="wt-status"></p>
+  </main>
+
+  <footer>&copy; 2025 MoVida</footer>
+
+  <script src="../js/nav.js"></script>
+  <script src="../js/workout-times.js"></script>
+</body>
+</html>

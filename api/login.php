@@ -8,7 +8,7 @@ $loginInfo = $_POST['loginInfo'] ?? '';
 $password = $_POST['password'] ?? '';
 
 
-$stmt = $pdo->prepare("SELECT * FROM benutzer WHERE email = :loginInfo OR username = :loginInfo");
+$stmt = $pdo->prepare("SELECT * FROM users WHERE email = :loginInfo OR username = :loginInfo");
 $stmt->execute([
     ':loginInfo' => $loginInfo,
   

@@ -29,7 +29,7 @@ if (strlen($password) < 8) {
 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
 // check if user already exists
-$stmt = $pdo->prepare("SELECT * FROM benutzer WHERE email = :email OR username = :username");
+$stmt = $pdo->prepare("SELECT * FROM users WHERE email = :email OR username = :username");
 $stmt->execute([
     ':email' => $email,
     ':username' => $username
@@ -43,8 +43,10 @@ if ($user) {
 
 } else {
 
+
+
     // insert new user
-    $insert = $pdo->prepare("INSERT INTO benutzer (email, username, password) VALUES (:email, :user, :pass)");
+    $insert = $pdo->prepare("INSERT INTO users (email, username, password_hash) VALUES (:email, :user, :pass)");
     $insert->execute([
     ':email' => $email,
     ':pass'  => $hashedPassword,
@@ -53,13 +55,14 @@ if ($user) {
 
     if ($insert) {
         echo "Registrierung erfolgreich";
+
+        session_start();
+        $_SESSION['user_id'] = $pdo->lastInsertId();
+        
+
     } else {
         echo "Registrierung fehlgeschlagen";
     }
 
-    // ► Ausgeben – nur zum Test!
-    // echo "PHP meldet, Daten erfolgreich empfangen.";
-    // echo "Username: {$username}\n";
-    // echo "E-Mail:   {$email}\n";
-    // echo "Passwort: {$hashedPassword}\n";
+   
 }

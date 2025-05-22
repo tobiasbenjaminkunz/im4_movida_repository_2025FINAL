@@ -37,7 +37,19 @@ document
       const reply = await res.text(); // register.php schickt nur Klartext zurück
       console.log("Antwort vom Server:\n" + reply);
       alert(reply);
-    } catch (err) {
+    
+      if (reply === "Registrierung erfolgreich") //message darf wirklich nur exakt so lauten
+      {
+    // Wenn registrierung erfolgreich, dann zur Startseite weiterleiten
+    window.location.href = "index.html";
+  }
+
+    } 
+    
+    catch (err) {
       console.error("Fehler beim Senden:", err);
+  
     }
+
+    
   });

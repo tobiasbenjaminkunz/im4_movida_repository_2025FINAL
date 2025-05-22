@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MoVida – Persönliche Daten</title>
+  <link rel="stylesheet" href="../css/main.css"/>
+</head>
+<body>
+  <header>
+    <button id="menu-toggle" aria-label="Menü öffnen">☰</button>
+    <h1>Persönliche Daten</h1>
+  </header>
+
+  <nav id="sidebar" class="hidden">
+    <!-- same sidebar as hub -->
+  </nav>
+
+  <main>
+    <form id="personalInfoForm">
+      <div>
+        <label for="pi-username">Benutzername:</label>
+        <input id="pi-username" name="username" type="text" />
+      </div>
+      <div>
+        <label for="pi-email">E-Mail:</label>
+        <input id="pi-email" name="email" type="email" />
+      </div>
+      <div>
+        <label for="pi-age">Alter:</label>
+        <input id="pi-age" name="age" type="number" min="50" />
+      </div>
+      <button type="submit">Speichern</button>
+    </form>
+    <p id="pi-status"></p>
+  </main>
+
+  <footer>&copy; 2025 MoVida</footer>
+
+  <script src="../js/nav.js"></script>
+  <script src="../js/personal-info.js"></script>
+</body>
+</html>

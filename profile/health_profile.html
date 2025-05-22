@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MoVida – Gesundheitsprofil</title>
+  <link rel="stylesheet" href="../css/main.css"/>
+</head>
+<body>
+  <header>
+    <button id="menu-toggle" aria-label="Menü öffnen">☰</button>
+    <h1>Gesundheitsprofil</h1>
+  </header>
+
+  <nav id="sidebar" class="hidden"></nav>
+
+  <main>
+    <form id="healthProfileForm">
+      <fieldset>
+        <legend>Bitte wähle deine Beschwerden aus:</legend>
+        <div id="condition-checkboxes">
+          <!-- JS will populate checkboxes from /api/health_conditions.php -->
+        </div>
+      </fieldset>
+      <button type="submit">Speichern</button>
+    </form>
+    <p id="hp-status"></p>
+  </main>
+
+  <footer>&copy; 2025 MoVida</footer>
+
+  <script src="../js/nav.js"></script>
+  <script src="../js/health-profile.js"></script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+/* how-movida.css */
+
+/* Info Box für die Anleitung */
+.info-box {
+  background-color: var(--color-surface);
+  border: 2px solid var(--color-primary);
+  border-radius: var(--radius-card);
+  padding: var(--space-md);
+  max-height: 500px;
+  overflow-y: auto;
+  box-shadow: var(--elevation-card);
+}
+
+/* Überschrift in der Box */
+.info-box h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: var(--space-md);
+}
+
+/* Scrollbar Styling */
+.info-box::-webkit-scrollbar {
+  width: 6px;
+}
+.info-box::-webkit-scrollbar-track {
+  background: #f0f0f0;
+}
+.info-box::-webkit-scrollbar-thumb {
+  background-color: var(--color-primary);
+  border-radius: 3px;
+}
+
+/* Absatz-Spacing */
+.info-box p {
+  margin-bottom: var(--space-sm);
+}
+
+/* Illustration-Abstand (falls benötigt) */
+.info-illustration {
+  margin-bottom: var(--space-md);
+}

@@ -22,15 +22,15 @@
   --space-lg:             24px;
   --space-xl:             32px;
 
-  /* Border radius */
   --radius-card:          16px;
   --radius-pill:          24px;
 
-  /* Shadow */
-  --elevation-card:       0 2px 8px rgba(0,0,0,0.05);
+  --elevation-card:       0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
-/* 2) GLOBAL RESET + TYPOGRAPHY */
+/* =======================
+   2) GLOBAL RESET + TYPO
+======================= */
 *,
 *::before,
 *::after {
@@ -66,7 +66,7 @@ a {
   text-decoration: none;
 }
 
-/* Utility */
+/* Utilities */
 .hidden {
   display: none !important;
 }
@@ -75,10 +75,37 @@ a {
 header {
   background-color: var(--color-primary);
   color: white;
-  padding: var(--space-md);
+  padding: var(--space-sm) var(--space-md);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Linke Icon-Gruppe */
+.header-left {
   display: flex;
   align-items: center;
   gap: var(--space-md);
+}
+
+/* Icon-Buttons */
+.header-icon {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+/* Avatar */
+.header-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid white;
 }
 
 header h1 {
@@ -149,7 +176,6 @@ select {
   font-size: 1rem;
   color: var(--color-text);
 }
-
 input::placeholder,
 select {
   color: var(--color-text-muted);
@@ -167,8 +193,6 @@ fieldset {
   justify-content: space-between;
   margin-bottom: var(--space-sm);
 }
-
-/* Example toggle switch */
 #health-conditions-container input[type="checkbox"] {
   appearance: none;
   width: 40px;
@@ -194,7 +218,9 @@ fieldset {
   border-radius: 50%;
   transition: transform 0.2s;
 }
-
+#health-conditions-container input[type="checkbox"]:checked {
+  background: var(--color-primary);
+}
 #health-conditions-container input[type="checkbox"]:checked::after {
   transform: translateX(20px);
 }

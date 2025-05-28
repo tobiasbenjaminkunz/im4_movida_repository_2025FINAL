@@ -72,46 +72,44 @@ a {
 }
 
 /* 3) LAYOUT */
+
+
+/* Icon-Buttons */
 header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
   background-color: var(--color-primary);
   color: white;
   padding: var(--space-sm) var(--space-md);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  height: 56px;
 }
 
-/* Linke Icon-Gruppe */
-.header-left {
-  display: flex;
-  align-items: center;
-  gap: var(--space-md);
-}
-
-/* Icon-Buttons */
+/* Burger-Menü */
 .header-icon {
   background: none;
   border: none;
   color: white;
   font-size: 1.5rem;
   cursor: pointer;
-  display: flex;
-  align-items: center;
 }
 
-/* Avatar */
-.header-avatar {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid white;
-}
-
+/* Zentrierte Überschrift */
 header h1 {
-  font-size: 1.5rem;
-  flex-grow: 1;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.25rem;
+  margin: 0;
+  white-space: nowrap;
 }
+
+/* Unsichtbarer Platzhalter rechts für Symmetrie */
+.spacer {
+  width: 24px; /* gleiche Breite wie das Burger-Menü links */
+}
+
 
 #menu-toggle {
   background: none;
@@ -272,4 +270,68 @@ img.responsive {
   margin: 0 auto var(--space-md);
 }
 
-/* END of main.css */
+/* =======================
+   7) ÜBUNGSKARTEN (Detailansicht)
+========================== */
+
+/* Bild ganz oben auf der Karte */
+.exercise-image {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto var(--space-md);
+  border-radius: var(--radius-card);
+}
+
+/* Abschnittsüberschrift */
+.section-title {
+  font-weight: bold;
+  margin-top: var(--space-md);
+  margin-bottom: var(--space-sm);
+  font-size: 1rem;
+  color: var(--color-text-muted);
+}
+
+/* Liste für „Gut für“ etc. */
+ul.bullet-list {
+  list-style: disc;
+  padding-left: var(--space-lg);
+  margin-bottom: var(--space-md);
+}
+
+ol.step-list {
+  list-style: decimal;
+  padding-left: var(--space-lg);
+  margin-bottom: var(--space-md);
+}
+
+ul.bullet-list li,
+ol.step-list li {
+  margin-bottom: var(--space-xs);
+}
+
+/* Warnung / Stop-Hinweise */
+ul.stop-signs {
+  list-style: disc;
+  padding-left: var(--space-lg);
+  color: #b30000;
+}
+
+/* Button "Workout completed?" */
+.exercise-card button.complete-button {
+  background-color: var(--color-primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-pill);
+  padding: var(--space-sm) var(--space-lg);
+  margin-top: var(--space-md);
+  font-size: 1rem;
+  width: 100%;
+  max-width: 100%;
+  cursor: pointer;
+}
+
+.exercise-card button.complete-button:hover {
+  background-color: #247169;
+}
+

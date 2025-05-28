@@ -1,18 +1,21 @@
+
+
+
 <!DOCTYPE html>
 <html lang="de">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>MoVida – Deine Übungen</title>
-  <link rel="stylesheet" href="css/main.css">
-  <!-- später: Figma-basiertes CSS -->
+  <link rel="stylesheet" href="css/main.css"><!-- später: Figma-basiertes CSS -->
 </head>
 <body>
   <!-- Header + Burger-Menu -->
-  <header>
-    <button id="menu-toggle" aria-label="Menü öffnen">☰</button>
-    <h1>Deine Übungen</h1>
-  </header>
+ <header>
+  <button id="menu-toggle" aria-label="Menü öffnen" class="header-icon">☰</button>
+  <h1>Deine Übungen</h1>
+  <div class="spacer"></div> <!-- zum Ausgleich auf der rechten Seite -->
+</header>
 
   <!-- Sidebar (initially hidden; toggled via js/nav.js) -->
   <nav id="sidebar" class="hidden">
@@ -32,7 +35,10 @@
     <!-- Will be filled by exercises.js -->
     <div id="exercise-feed">
       <!-- Beispielkarte, bevor JavaScript lädt -->
+       <img src="assets.jpg/bild how it works.jpg" alt="Beispielbild" class="exercise-image">
       <p>Lade deine Übungen …</p>
+      
+  
     </div>
   </main>
 

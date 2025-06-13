@@ -1,0 +1,128 @@
+/* register.css */
+
+/* Bildbereich oben mit Logo */
+.login-hero {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+  margin-bottom: var(--space-lg);
+}
+
+.hero-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  max-height: 300px;
+}
+
+.logo {
+  max-width: 180px;
+  width: 60%;
+  height: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+/* Headline */
+h1 {
+  text-align: center;
+  font-size: 1.5rem;
+  margin-bottom: var(--space-lg);
+  padding: 0 var(--space-md);
+}
+
+/* Formular */
+#registerForm {
+  max-width: 500px;
+  margin: 0 auto;
+  background-color: var(--color-surface);
+  padding: var(--space-lg);
+  border-radius: var(--radius-card);
+  box-shadow: var(--elevation-card);
+}
+
+/* Eingabefelder */
+#registerForm input[type="text"],
+#registerForm input[type="email"],
+#registerForm input[type="password"],
+#registerForm input[type="time"] {
+  width: 100%;
+  padding: var(--space-sm) var(--space-md);
+  margin-top: var(--space-xs);
+  margin-bottom: var(--space-md);
+  border: none;
+  border-radius: var(--radius-pill);
+  background-color: var(--color-input-bg);
+  font-size: 1rem;
+}
+
+/* Labels */
+#registerForm label {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  display: block;
+}
+
+/* Fieldsets */
+#registerForm fieldset {
+  margin-bottom: var(--space-lg);
+  border: none;
+  padding: 0;
+}
+
+#registerForm legend {
+  font-weight: bold;
+  margin-bottom: var(--space-sm);
+}
+
+/* Trainingstage Zeilen */
+.wt-entry {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-sm);
+}
+
+/* Submit-Button */
+#registerForm button {
+  width: 100%;
+  background-color: var(--color-primary);
+  color: white;
+  padding: var(--space-md);
+  font-size: 1rem;
+  border: none;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+#registerForm button:hover {
+  background-color: #247169;
+}
+
+/* Login-Link */
+#registerForm p {
+  text-align: center;
+  margin-top: var(--space-md);
+}
+
+#registerForm a {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+/* Responsiveness */
+@media (max-width: 480px) {
+  .logo {
+    width: 70%;
+    margin-top: -40px;
+  }
+
+  #registerForm {
+    padding: var(--space-md);
+  }
+}

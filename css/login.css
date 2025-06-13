@@ -1,29 +1,42 @@
 /* login.css */
 
-/* Bild oben */
+/* =============================
+   Bildbereich oben
+============================= */
 .login-hero {
-  width: 100%;
-  max-width: 100%;
-  overflow: hidden;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 0 var(--space-md);
+  text-align: center;
 }
 
 .hero-image {
   width: 100%;
   height: auto;
   display: block;
-  object-fit: cover;
-  max-height: 320px;
+  object-fit: contain;
+  max-height: 400px;
 }
 
-/* Login-Formular */
+@media (max-width: 768px) {
+  .hero-image {
+    object-fit: cover;
+    max-height: 300px;
+  }
+}
+
+/* =============================
+   Formular
+============================= */
 #loginForm {
+  max-width: 500px;
+  margin: 0 auto;
   background-color: var(--color-surface);
-  max-width: 400px;
-  margin: -40px auto 0 auto;
   padding: var(--space-lg);
   border-radius: var(--radius-card);
   box-shadow: var(--elevation-card);
   text-align: center;
+  margin-top: 1em;
 }
 
 #loginForm div {
@@ -45,7 +58,20 @@
 }
 
 #loginForm button {
+  width: 100%;
+  background-color: var(--color-primary);
+  color: white;
+  padding: var(--space-md);
+  font-size: 1rem;
+  border: none;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
   margin-top: var(--space-sm);
+}
+
+#loginForm button:hover {
+  background-color: #247169;
 }
 
 #loginForm p {
@@ -54,15 +80,14 @@
 }
 
 #loginForm a {
-  color: var(--color-text-muted);
+  color: var(--color-primary);
   text-decoration: underline;
 }
 
-@media (max-width: 400px) {
-  .login-wrapper {
-    padding: var(--space-md);
-  }
-
+/* =============================
+   Responsive Tweaks
+============================= */
+@media (max-width: 480px) {
   #loginForm {
     padding: var(--space-md);
   }

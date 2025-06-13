@@ -13,8 +13,8 @@
   width: 100%;
   height: auto;
   display: block;
-  object-fit: cover;
-  max-height: 300px;
+  object-fit: contain;
+  max-height: 400px;
 }
 
 .logo {
@@ -81,11 +81,29 @@ h1 {
 
 /* Trainingstage Zeilen */
 .wt-entry {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   align-items: center;
-  justify-content: space-between;
+  gap: var(--space-sm);
   margin-bottom: var(--space-sm);
 }
+
+.wt-entry label {
+  text-align: left;
+  font-size: 1rem;
+  white-space: nowrap;
+}
+
+.wt-entry input[type="time"] {
+  width: 100%;
+  border: none;
+  border-radius: var(--radius-pill);
+  background-color: var(--color-input-bg);
+  padding: var(--space-sm) var(--space-md);
+  font-size: 1rem;
+  color: var(--color-text);
+}
+
 
 /* Submit-Button */
 #registerForm button {

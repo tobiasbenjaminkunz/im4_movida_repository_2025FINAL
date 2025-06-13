@@ -12,25 +12,18 @@
     <h1>Trainingszeiten</h1>
   </header>
 
-  <nav id="sidebar" class="hidden"></nav>
+  <nav id="sidebar" class="hidden">
+    <!-- ... -->
+  </nav>
 
   <main>
     <form id="workoutTimesForm">
-      <div id="existing-times">
-        <!-- JS will list current times with delete buttons -->
+      <div id="wt-list">
+        <!-- JS will inject 7 inputs here -->
       </div>
-      <fieldset>
-        <legend>Neue Zeit hinzufügen:</legend>
-        <label for="wt-day">Tag:</label>
-        <select id="wt-day" name="day_of_week">
-          <option value="0">Sonntag</option>
-          <option value="1">Montag</option>
-          <!-- … bis Samstag (6) -->
-        </select>
-        <label for="wt-time">Uhrzeit:</label>
-        <input id="wt-time" name="time" type="time" required/>
-      </fieldset>
-      <button type="submit">Hinzufügen</button>
+      <button type="submit" class="btn btn-primary" style="margin-top: var(--space-md)">
+        Speichern
+      </button>
     </form>
     <p id="wt-status"></p>
   </main>
@@ -38,6 +31,7 @@
   <footer>&copy; 2025 MoVida</footer>
 
   <script src="../js/nav.js"></script>
-  <script src="../js/workout-times.js"></script>
+  <script src="../js/workout_times.js"></script>
+  
 </body>
 </html>

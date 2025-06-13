@@ -12,13 +12,9 @@ if (data.status === "error") {
     window.location.href = "login.html";
 }
 
-else {
 
-    document.getElementById("welcome_message").
-    innerHTML = "Willkommen " + data.username + "!";
-}
 
 })
 .catch ((error) => {
-    console.error("error:", error);
+    console.error("error:");
   });

@@ -1,44 +1,75 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Registrieren – MoVida</title>
+  <link rel="stylesheet" href="css/main.css"/>
+</head>
+<body>
+  <h1>Jetzt Registrieren für unsere super App!</h1>
 
-    <link rel="stylesheet" href="css/main.css" />
-  </head>
-  <body>
-    <h1>Jetzt Registrieren für unsere super App!</h1>
+  <form id="registerForm">
+    <!-- … email / username / password as before … -->
 
-    <form id="registerForm" action="">
-      <label for="email"> Email:</label>
-      <input id="email" type="email" />
-      <br />
-      <br />
-
-      <label for="username"> Username:</label>
-      <input id="username" type="text" />
-      <br />
-      <br />
-
+    <div>
+      <label for="email">Email:</label>
+      <input id="email" name="email" type="email" required />
+    </div>
+    <div>
+      <label for="username">Username:</label>
+      <input id="username" name="username" type="text" required />
+    </div>
+    <div>
       <label for="password">Passwort:</label>
-      <input id="password" type="password" />
-      <br />
-      <br />
+      <input id="password" name="password" type="password" required />
+    </div>
 
-      <fieldset>
-        <legend>Gesundheits‐Beschwerden</legend>
-        <div id="health-conditions-container">
-          <!-- checkboxes inserted here by register.js -->
-          <p>Lade Optionen …</p>
-        </div>
-      </fieldset>
+    <!-- Gesundheits-Bedingungen (unchanged) -->
+    <fieldset>
+      <legend>Gesundheits‐Beschwerden</legend>
+      <div id="health-conditions-container">
+        <p>Lade Optionen …</p>
+      </div>
+    </fieldset>
 
-      <button type="submit">Registrieren!</button>
+    <!-- NEU: Feste Felder: Eine Zeit-Eingabe pro Wochentag -->
+    <fieldset>
+      <legend>Trainingszeiten (optional)</legend>
+      <div class="wt-entry">
+        <label for="wt-0">Sonntag</label>
+        <input id="wt-0" class="wt-time" data-day="0" type="time" />
+      </div>
+      <div class="wt-entry">
+        <label for="wt-1">Montag</label>
+        <input id="wt-1" class="wt-time" data-day="1" type="time" />
+      </div>
+      <div class="wt-entry">
+        <label for="wt-2">Dienstag</label>
+        <input id="wt-2" class="wt-time" data-day="2" type="time" />
+      </div>
+      <div class="wt-entry">
+        <label for="wt-3">Mittwoch</label>
+        <input id="wt-3" class="wt-time" data-day="3" type="time" />
+      </div>
+      <div class="wt-entry">
+        <label for="wt-4">Donnerstag</label>
+        <input id="wt-4" class="wt-time" data-day="4" type="time" />
+      </div>
+      <div class="wt-entry">
+        <label for="wt-5">Freitag</label>
+        <input id="wt-5" class="wt-time" data-day="5" type="time" />
+      </div>
+      <div class="wt-entry">
+        <label for="wt-6">Samstag</label>
+        <input id="wt-6" class="wt-time" data-day="6" type="time" />
+      </div>
+    </fieldset>
 
-      <p>Bereits registriert? Jetzt <a href="login.html"> einloggen </a></p>
-    </form>
+    <button type="submit">Registrieren!</button>
+    <p>Bereits registriert? Jetzt <a href="login.html">einloggen</a></p>
+  </form>
 
-    <script src="js/register.js"></script>
-  </body>
+  <script src="js/register.js"></script>
+</body>
 </html>

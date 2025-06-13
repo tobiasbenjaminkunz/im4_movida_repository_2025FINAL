@@ -1,26 +1,39 @@
 <?php
+// api/exercises.php
 
-require_once('../system/config.php');
-
+require_once __DIR__ . '/../system/config.php';
 header('Content-Type: application/json; charset=UTF-8');
+session_start();
 
-// TODO: Replace with real DB query joining user_exercises + exercises
-$mock = [
-  [
-    "exercise_id" => 1,
-    "exercise_name" => "Kniebeugen",
-    "exercise_description" => "Stelle dich hüftbreit hin und beuge die Knie langsam ...",
-  ],
-  [
-    "exercise_id" => 2,
-    "exercise_name" => "Armkreisen",
-    "exercise_description" => "Halte die Arme seitlich ausgestreckt und mache kreisende Bewegungen ...",
-  ],
-  [
-    "exercise_id" => 3,
-    "exercise_name" => "Rückenstrecker",
-    "exercise_description" => "Lege dich flach auf den Bauch und hebe Oberkörper und Beine abwechselnd an ...",
-  ],
-];
+if (empty($_SESSION['user_id'])) {
+  http_response_code(401);
+  echo json_encode(['error'=>'not_logged_in']);
+  exit;
+}
+$uid   = $_SESSION['user_id'];
+$today = date('w');
 
-echo json_encode($mock);
+try {
+  $stmt = $pdo->prepare("
+    SELECT
+      e.exercise_id,
+      e.exercise_name,
+      e.exercise_description,
+      ut.day_of_week,
+      ut.time_of_day
+    FROM user_exercises ue
+    JOIN workout_times ut 
+      ON ue.workout_time_id = ut.workout_time_id
+    JOIN exercises e
+      ON ue.exercise_id = e.exercise_id
+    WHERE ue.user_id    = :uid
+      AND ut.day_of_week = :dow
+    ORDER BY ut.time_of_day
+  ");
+  $stmt->execute([':uid'=>$uid, ':dow'=>$today]);
+  echo json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));
+} catch (PDOException $e) {
+  http_response_code(500);
+  error_log("Fetch exercises error: " . $e->getMessage());
+  echo json_encode(['error'=>'db_error']);
+}

@@ -18,7 +18,7 @@ $user = $stmt->fetch();
 
 if ($user) {
     // User exists, now check the password
-    if (password_verify($password, $user['password'])) {
+    if (password_verify($password, $user['password_hash'])) {
         echo "Login succesful";
     } else {
         echo "Wrong password";
@@ -26,7 +26,7 @@ if ($user) {
 
 
     session_start();
-    $_SESSION['user_id'] = $user['ID'];
+    $_SESSION['user_id'] = $user['user_id'];
     $_SESSION['username'] = $user['username'];
     $_SESSION['email'] = $user['email'];
     $_SESSION['logged_in'] = true;

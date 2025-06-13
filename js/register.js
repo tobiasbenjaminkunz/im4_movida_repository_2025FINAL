@@ -1,141 +1,96 @@
-// console.log("Hello from Register JS!");
-
-// document
-//   .getElementById("registerForm")
-//   .addEventListener("submit", async (e) => {
-//     e.preventDefault(); // Formular‑Reload verhindern
-
-//     // ► Eingabewerte aus den Feldern holen
-//     const username = document.querySelector("#username").value.trim();
-//     const email = document.querySelector("#email").value.trim();
-//     const password = document.querySelector("#password").value;
-
-//     // validate if all fields are filled
-//     if (!username || !email || !password) {
-//       alert("Bitte fülle alle Felder aus");
-//       return;
-//     }
-
-//     // check passwords requirements
-//     if (password.length < 8) {
-//       alert("Passwort muss mindestens 8 Zeichen lang sein");
-//       return;
-//     }
-
-//     // FormData füllt PHPs $_POST automatisch
-//     const formData = new FormData();
-//     formData.append("username", username);
-//     formData.append("email", email);
-//     formData.append("password", password);
-
-//     // Fetch
-//     try {
-//       const res = await fetch("api/register.php", {
-//         method: "POST",
-//         body: formData,
-//       });
-//       const reply = await res.text(); // register.php schickt nur Klartext zurück
-//       console.log("Antwort vom Server:\n" + reply);
-//       alert(reply);
-    
-//       if (reply === "Registrierung erfolgreich") //message darf wirklich nur exakt so lauten
-//       {
-//     // Wenn registrierung erfolgreich, dann zur Startseite weiterleiten
-//     window.location.href = "index.html";
-//   }
-
-//     } 
-    
-//     catch (err) {
-//       console.error("Fehler beim Senden:", err);
-  
-//     }
-
-    
-//   });
-
-
-
-console.log("Hello from Register JS!");
+// js/register.js
+console.log("Hello from register.js!");
 
 document.addEventListener("DOMContentLoaded", () => {
-  const form = document.getElementById("registerForm");
+  const form        = document.getElementById("registerForm");
   const hcContainer = document.getElementById("health-conditions-container");
+  const wtInputs    = Array.from(document.querySelectorAll(".wt-time"));
 
-  // Load health conditions into checkboxes
+  console.log(wtInputs)
+
+  // 1) Load health conditions for the checkboxes
   fetch("api/health_conditions.php")
     .then(res => res.json())
-    .then(conds => {
+    .then(list => {
       hcContainer.innerHTML = "";
-      conds.forEach(c => {
+      list.forEach(c => {
         const cb = document.createElement("input");
-        cb.type = "checkbox";
-        cb.id   = `hc-${c.health_condition_id}`;
-        cb.name = "conditions[]";
+        cb.type  = "checkbox";
+        cb.id    = `hc-${c.health_condition_id}`;
+        cb.name  = "conditions[]";
         cb.value = c.health_condition_id;
 
         const lbl = document.createElement("label");
-        lbl.htmlFor = cb.id;
+        lbl.htmlFor    = cb.id;
         lbl.textContent = c.condition_name;
 
-        const div = document.createElement("div");
-        div.append(cb, lbl);
-        hcContainer.append(div);
+        const wrapper = document.createElement("div");
+        wrapper.append(cb, lbl);
+
+        hcContainer.append(wrapper);
       });
     })
     .catch(err => {
-      console.error("Fehler beim Laden der Bedingungen:", err);
+      console.error("Fehler beim Laden der Gesundheits‐Bedingungen:", err);
       hcContainer.innerHTML = "<p>Fehler beim Laden.</p>";
     });
 
+  // 2) Handle form submission
   form.addEventListener("submit", async (e) => {
-    e.preventDefault(); // Formular-Reload verhindern
+    e.preventDefault();
 
-    // ► Eingabewerte aus den Feldern holen
+    // Read values *now*
     const username = form.username.value.trim();
     const email    = form.email.value.trim();
     const password = form.password.value;
 
-    // validate if all fields are filled
-    if (!username || !email || !password) {
-      alert("Bitte fülle alle Felder aus");
+    console.log("Eingegeben – Username:", username, "Email:", email, "Passwort:", password);
+
+    // Simple validation
+    if (!username || !email || password.length < 8) {
+      alert("Bitte alle Felder korrekt ausfüllen und Passwort ≥ 8 Zeichen.");
       return;
     }
 
-    // check passwords requirements
-    if (password.length < 8) {
-      alert("Passwort muss mindestens 8 Zeichen lang sein");
-      return;
-    }
-
-    // gather selected conditions
-    const selectedConds = Array.from(
+    // Collect selected health conditions
+    const conditions = Array.from(
       form.querySelectorAll("input[name='conditions[]']:checked")
     ).map(cb => cb.value);
+    console.log("Ausgewählte Bedingungen:", conditions);
 
-    // FormData füllt PHPs $_POST automatisch
-    const formData = new FormData();
-    formData.append("username", username);
-    formData.append("email", email);
-    formData.append("password", password);
-    selectedConds.forEach(id => formData.append("conditions[]", id));
+    // Build FormData
+    const fd = new FormData();
+    fd.append("username", username);
+    fd.append("email",    email);
+    fd.append("password", password);
+    conditions.forEach(id => fd.append("conditions[]", id));
 
-    // Fetch
+    // Collect one time input per weekday
+    wtInputs.forEach(input => {
+      const day = input.dataset.day;
+      const time = input.value;
+      if (time) {
+        console.log(`Work-out am Tag ${day} um ${time}`);
+        fd.append("wt_day[]",  day);
+        fd.append("wt_time[]", time);
+      }
+    });
+
+    // Send to server
     try {
-      const res = await fetch("api/register.php", {
+      const res  = await fetch("api/register.php", {
         method: "POST",
-        body: formData,
+        body: fd
       });
-      const reply = await res.text(); // register.php schickt nur Klartext zurück
-      console.log("Antwort vom Server:\n" + reply);
-      alert(reply);
-
-      if (reply === "Registrierung erfolgreich") {
-        // Wenn registrierung erfolgreich, dann zur Startseite weiterleiten
-        window.location.href = "index.html";
+      const text = await res.text();
+      console.log("Server antwortet:", text);
+      alert(text);
+      if (text.includes("erfolgreich")) {
+        window.location.href = "login.html";
       }
     } catch (err) {
       console.error("Fehler beim Senden:", err);
+      alert("Fehler beim Registrieren. Bitte erneut versuchen.");
     }
   });
 });

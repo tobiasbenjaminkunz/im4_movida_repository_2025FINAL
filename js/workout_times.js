@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const form    = document.getElementById("workoutTimesForm");
   const statusP = document.getElementById("wt-status");
 
-  // holds existing slots (day → { id, time })
+  // holds existing slots: day → { id, time }
   const existing = {};
 
   const days = [
@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "Mittwoch","Donnerstag","Freitag","Samstag"
   ];
 
-  // 1) build seven inputs
+  // 1) Build the 7 inputs
   days.forEach((label, day) => {
     const wrapper = document.createElement("div");
     wrapper.className    = "wt-entry";
@@ -32,35 +32,39 @@ document.addEventListener("DOMContentLoaded", () => {
     wtList.append(wrapper);
   });
 
-  // 2) load & populate existing
+  // 2) Load existing slots
   async function loadTimes() {
     statusP.textContent = "";
     try {
-      const res  = await fetch("api/workout_times.php", { credentials: "include" });
-      if (res.status === 401) return void (window.location.href = "../login.html");
-      const times = await res.json();
+      const res  = await fetch("/api/workout_times.php", { credentials: "include" });
+      if (res.status === 401) {
+        window.location.href = "../login.html";
+        return;
+      }
+      if (!res.ok) throw new Error(`Server antwortete ${res.status}`);
 
-      // clear old data
+      const times = await res.json();
+      // clear map
       Object.keys(existing).forEach(k => delete existing[k]);
+      // fill map
       times.forEach(t => {
         existing[t.day_of_week] = {
           id:   t.workout_time_id,
           time: t.time_of_day
         };
       });
-
-      // fill inputs
+      // populate inputs
       days.forEach((_, day) => {
         const inp = document.getElementById(`time_${day}`);
         inp.value = existing[day]?.time || "";
       });
     } catch (err) {
-      console.error("Fehler beim Laden:", err);
+      console.error("Fehler beim Laden der Zeiten:", err);
       statusP.textContent = "Fehler beim Laden der Trainingszeiten.";
     }
   }
 
-  // 3) save handler
+  // 3) Save handler
   form.addEventListener("submit", async e => {
     e.preventDefault();
     statusP.textContent = "";
@@ -72,7 +76,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // a) cleared existing → DELETE
       if (oldSlot && !newTime) {
-        await fetch("api/workout_times.php", {
+        await fetch("/api/workout_times.php", {
           method: "DELETE",
           credentials: "include",
           body: new URLSearchParams({ id: oldSlot.id })
@@ -83,7 +87,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const fd = new FormData();
         fd.append("day_of_week", day);
         fd.append("time", newTime);
-        await fetch("api/workout_times.php", {
+        await fetch("/api/workout_times.php", {
           method: "POST",
           credentials: "include",
           body: fd
@@ -91,7 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       // c) changed → DELETE + POST
       else if (oldSlot && newTime && newTime !== oldSlot.time) {
-        await fetch("api/workout_times.php", {
+        await fetch("/api/workout_times.php", {
           method: "DELETE",
           credentials: "include",
           body: new URLSearchParams({ id: oldSlot.id })
@@ -99,7 +103,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const fd = new FormData();
         fd.append("day_of_week", day);
         fd.append("time", newTime);
-        await fetch("api/workout_times.php", {
+        await fetch("/api/workout_times.php", {
           method: "POST",
           credentials: "include",
           body: fd

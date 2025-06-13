@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
   <title>MoVida – Persönliche Daten</title>
   <link rel="stylesheet" href="../css/main.css"/>
 </head>
@@ -13,24 +13,28 @@
   </header>
 
   <nav id="sidebar" class="hidden">
-    <!-- same sidebar as hub -->
+    <ul>
+      <li><a href="/index.html">Deine Übungen</a></li>
+      <li><a href="/exercise.html">Aktuelle Übung</a></li>
+      <li><a href="/calendar.html">Kalendar</a></li>
+      <li><a href="/profile/profilehub.html">Profil</a></li>
+      <li><a href="/how_it_works.html">So funktioniert MoVida</a></li>
+      <li><a href="/contact.html">Kontakt & Datenschutz</a></li>
+    </ul>
   </nav>
 
   <main>
     <form id="personalInfoForm">
       <div>
-        <label for="pi-username">Benutzername:</label>
-        <input id="pi-username" name="username" type="text" />
+        <label for="pi-username">Benutzername <sup>*</sup></label>
+        <input id="pi-username" name="username" type="text" required />
       </div>
       <div>
-        <label for="pi-email">E-Mail:</label>
-        <input id="pi-email" name="email" type="email" />
+        <label for="pi-email">E-Mail <sup>*</sup></label>
+        <input id="pi-email" name="email" type="email" required />
       </div>
-      <div>
-        <label for="pi-age">Alter:</label>
-        <input id="pi-age" name="age" type="number" min="50" />
-      </div>
-      <button type="submit">Speichern</button>
+      
+      <button type="submit" class="btn btn-primary">Speichern</button>
     </form>
     <p id="pi-status"></p>
   </main>
@@ -38,6 +42,6 @@
   <footer>&copy; 2025 MoVida</footer>
 
   <script src="../js/nav.js"></script>
-  <script src="../js/personal-info.js"></script>
+  <script src="../js/personal_info.js"></script>
 </body>
 </html>

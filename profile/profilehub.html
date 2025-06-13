@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>MoVida – Dein Profil</title>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>MoVida – Profil-Hub</title>
   <link rel="stylesheet" href="../css/main.css"/>
 </head>
 <body>
@@ -14,22 +14,40 @@
 
   <nav id="sidebar" class="hidden">
     <ul>
-      <li><a href="../index.html">Übersicht</a></li>
-      <li><a href="profilehub.html">Profil-Hub</a></li>
-      <li><a href="personal-info.html">Persönliche Daten</a></li>
-      <li><a href="health-profile.html">Gesundheitsprofil</a></li>
-      <li><a href="workout_times.html">Trainingszeiten</a></li>
-      
+      <li><a href="/index.html">Deine Übungen</a></li>
+      <li><a href="/profile/profilehub.html" class="active">Profil</a></li>
+      <li><a href="/how_it_works.html">So funktioniert MoVida</a></li>
+      <li><a href="/contact.html">Kontakt & Datenschutz</a></li>
     </ul>
   </nav>
 
   <main>
-    <ul class="profile-menu">
-      <li><a href="personal-info.html">Persönliche Daten</a></li>
-      <li><a href="health-profile.html">Gesundheitsprofil</a></li>
-      <li><a href="workout_times.html">Trainingszeiten</a></li>
-      
-    </ul>
+    <!-- Personal Info -->
+    <section class="card">
+      <h2>Persönliche Daten</h2>
+      <p><strong>Benutzername:</strong> <span id="ph-username">–</span></p>
+      <p><strong>E-Mail:</strong> <span id="ph-email">–</span></p>
+      <p><strong>Alter:</strong> <span id="ph-age">–</span></p>
+      <button id="edit-personal" class="btn btn-outline">Bearbeiten</button>
+    </section>
+
+    <!-- Health Profile -->
+    <section class="card">
+      <h2>Gesundheitsprofil</h2>
+      <ul id="ph-conditions">
+        <li>– keine Beschwerden ausgewählt –</li>
+      </ul>
+      <button id="edit-health" class="btn btn-outline">Bearbeiten</button>
+    </section>
+
+    <!-- Workout Times -->
+    <section class="card">
+      <h2>Trainingszeiten</h2>
+      <ul id="ph-times">
+        <li>– noch keine Trainingszeit festgelegt –</li>
+      </ul>
+      <button id="edit-times" class="btn btn-outline">Bearbeiten</button>
+    </section>
   </main>
 
   <footer>&copy; 2025 MoVida</footer>

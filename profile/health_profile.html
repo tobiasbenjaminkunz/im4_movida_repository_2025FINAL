@@ -4,7 +4,8 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>MoVida – Gesundheitsprofil</title>
-  <link rel="stylesheet" href="main.css"/>
+  <!-- go up one level into /css/ -->
+  <link rel="stylesheet" href="../css/main.css"/>
 </head>
 <body>
   <header>
@@ -12,24 +13,34 @@
     <h1>Gesundheitsprofil</h1>
   </header>
 
-  <nav id="sidebar" class="hidden"></nav>
+  <nav id="sidebar" class="hidden">
+    <ul>
+      <li><a href="/index.html">Heutige Übungen</a></li>
+      <li><a href="/profile/profilehub.html">Profil</a></li>
+      <li><a href="/how_it_works.html">So funktioniert MoVida</a></li>
+      <li><a href="/contact.html">Kontakt & Datenschutz</a></li>
+    </ul>
+  </nav>
+  
+  
 
   <main>
     <form id="healthProfileForm">
       <fieldset>
-        <legend>Bitte wähle deine Beschwerden aus:</legend>
+        <legend>Deine Beschwerden</legend>
         <div id="condition-checkboxes">
-          <!-- JS will populate checkboxes from /api/health_conditions.php -->
+          <!-- will be populated by JS -->
         </div>
       </fieldset>
-      <button type="submit">Speichern</button>
+      <button type="submit" class="btn btn-primary">Speichern</button>
     </form>
     <p id="hp-status"></p>
   </main>
 
   <footer>&copy; 2025 MoVida</footer>
 
+  <!-- fix the filename & path here -->
   <script src="../js/nav.js"></script>
-  <script src="../js/health-profile.js"></script>
+  <script src="../js/health_profile.js"></script>
 </body>
 </html>

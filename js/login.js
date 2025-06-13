@@ -14,6 +14,7 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
   const formData = new FormData();
   formData.append("loginInfo", loginInfo);
   formData.append("password", password);
+  
 
   // Fetch
   try {

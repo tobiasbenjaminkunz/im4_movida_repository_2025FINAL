@@ -12,8 +12,6 @@ if (data.status === "error") {
     window.location.href = "login.html";
 }
 
-
-
 })
 .catch ((error) => {
     console.error("error:");
